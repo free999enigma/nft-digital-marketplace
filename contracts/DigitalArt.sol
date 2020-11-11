@@ -3,9 +3,8 @@ pragma solidity >=0.4.22 <0.8.0;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/payment/PullPayment.sol";
-import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
-contract DigitalArt is ERC721, PullPayment, ReentrancyGuard {
+contract DigitalArt is ERC721, PullPayment {
     uint256 public _tokenIds;
     uint256 public _artItemIds;
     mapping(uint256 => ArtItem) private _artItems;
@@ -61,7 +60,7 @@ contract DigitalArt is ERC721, PullPayment, ReentrancyGuard {
         _asyncTransfer(artItem.seller, msg.value);
     }
 
-    function getPayments() external nonReentrant {
+    function getPayments() external {
         withdrawPayments(msg.sender);
     }
 }
